@@ -1,0 +1,64 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.17.0'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+          npm audit fix
+
+      - name: Build
+        run: |
+          npm run build
+          cp index.html dist/
+          cp -r sections dist/
+          cp -r js dist/
+          cp -r fonts.html dist/
+          cp -r assets dist/ || true
+          cp -r images dist/ || true
+          cp -r fonts dist/ || true
+          cp CNAME dist/ || true
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: custom
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          path: dist
+
+      - name: Verify Deployment
+        run: |
+          echo "Deployment completed. Checking site availability..."
+          curl -sSf https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/ || echo "Site might take a few minutes to become available" 

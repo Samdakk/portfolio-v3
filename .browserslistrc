@@ -1,0 +1,33 @@
+# Browsers that we support
+
+# Navegadores principales
+> 0.5%
+last 2 versions
+
+# Chrome y derivados
+chrome >= 119
+edge >= 119
+
+# Firefox
+firefox >= 119
+
+# Safari	y Safari >= 15.4
+ios_saf >= 15.4
+
+# Opera
+opera >= 105
+
+# Samsung
+samsung >= 20
+
+# Android
+android >= 119
+and_chr >= 119
+and_ff >= 119
+and_uc >= 12.12
+and_qq >= 10.4
+
+# Excluir navegadores obsoletos
+not dead
+not ie 11
+not kaios > 2.5 

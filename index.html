@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.161.0/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link rel="stylesheet" href="dist/styles.min.css">
+<div id="fonts-container"></div>
+</head>
+<body class="relative">
+<div class="custom-cursor"></div>
+<div class="cursor-dot"></div>
+
+<!-- Contenedores para las secciones -->
+<div id="nav-container" class="section"></div>
+<div id="hero-container" class="section"></div>
+<div id="about-container" class="section"></div>
+<div id="skills-container" class="section"></div>
+<div id="projects-container" class="section"></div>
+<div id="contact-container" class="section"></div>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-8 md:py-12">
+<div class="container mx-auto px-4 md:px-6">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+<div class="mb-8 md:mb-0">
+<h3 class="text-2xl font-['Pacifico'] mb-2">Lucas Vazquez</h3>
+<p class="text-gray-400">Full Stack Developer & Code Enthusiast</p>
+</div>
+<div class="flex flex-col items-center md:items-end">
+<p class="text-gray-400 mb-2">© 2025 Lucas Vazquez. All rights reserved.</p>
+<p class="text-gray-500">Made with <i class="ri-heart-fill text-primary"></i> and lots of coffee</p>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+// Estado global para el seguimiento de la carga
+const loadingState = {
+    sectionsLoaded: 0,
+    totalSections: 6,
+    sectionsInitialized: false,
+    sections: [
+        { id: 'nav-container', file: 'dist/sections/nav.html' },
+        { id: 'hero-container', file: 'dist/sections/hero.html' },
+        { id: 'about-container', file: 'dist/sections/about.html' },
+        { id: 'skills-container', file: 'dist/sections/skills.html' },
+        { id: 'projects-container', file: 'dist/sections/projects.html' },
+        { id: 'contact-container', file: 'dist/sections/contact.html' }
+    ]
+};
+
+// Función para cargar una sección
+async function loadSection(containerId, sectionFile) {
+    console.log(`[DEBUG] Intentando cargar sección: ${sectionFile}`);
+    try {
+        const response = await fetch(sectionFile);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const html = await response.text();
+        console.log(`[DEBUG] Contenido cargado para ${sectionFile}:`, html.substring(0, 100) + '...');
+        
+        const container = document.getElementById(containerId);
+        if (!container) {
+            throw new Error(`Container ${containerId} no encontrado`);
+        }
+        
+        container.innerHTML = html;
+        
+        // Asegurar que la sección sea visible
+        container.style.opacity = '1';
+        container.style.transform = 'none';
+        container.style.transition = 'opacity 0.3s ease-in-out';
+        
+        // Si es el nav, asegurar que esté en la parte superior
+        if (containerId === 'nav-container') {
+            container.style.position = 'relative';
+            container.style.zIndex = '50';
+        }
+        
+        console.log(`[DEBUG] Sección ${containerId} cargada exitosamente`);
+        return true;
+    } catch (error) {
+        console.error(`[ERROR] Error cargando ${sectionFile}:`, error);
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = `<div class="error-message p-4 bg-red-100 text-red-700 rounded">Error loading section: ${error.message}</div>`;
+        }
+        return false;
+    }
+}
+
+// Función para cargar las fuentes
+async function loadFonts() {
+    console.log('[DEBUG] Intentando cargar fuentes...');
+    try {
+        const response = await fetch('dist/fonts.html');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const html = await response.text();
+        console.log('[DEBUG] Fuentes cargadas exitosamente');
+        const container = document.getElementById('fonts-container');
+        if (container) {
+            container.innerHTML = html;
+        }
+        return true;
+    } catch (error) {
+        console.error('[ERROR] Error cargando fuentes:', error);
+        return false;
+    }
+}
+
+// Función para verificar si todas las secciones están cargadas
+function checkAllSectionsLoaded() {
+    console.log('[DEBUG] Verificando secciones cargadas...');
+    loadingState.sectionsLoaded++;
+    console.log(`[DEBUG] Secciones cargadas: ${loadingState.sectionsLoaded} de ${loadingState.totalSections}`);
+    
+    if (loadingState.sectionsLoaded >= loadingState.totalSections && !loadingState.sectionsInitialized) {
+        loadingState.sectionsInitialized = true;
+        console.log('[DEBUG] Todas las secciones cargadas, inicializando animaciones...');
+        if (typeof window.initializeAnimations === 'function') {
+            window.initializeAnimations();
+        }
+    }
+}
+
+// Función principal de inicialización
+async function initializeApp() {
+    console.log('[DEBUG] Iniciando aplicación...');
+    try {
+        // Cargar fuentes primero
+        await loadFonts();
+        console.log('[DEBUG] Fuentes cargadas, procediendo a cargar secciones...');
+
+        // Cargar secciones secuencialmente
+        for (const section of loadingState.sections) {
+            const success = await loadSection(section.id, section.file);
+            console.log(`[DEBUG] Carga de ${section.id}: ${success ? 'Exitoso' : 'Fallido'}`);
+            if (success) {
+                checkAllSectionsLoaded();
+            }
+        }
+        console.log('[DEBUG] Proceso de carga completado');
+    } catch (error) {
+        console.error('[ERROR] Error durante la inicialización:', error);
+    }
+}
+
+// Iniciar la aplicación cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initializeApp);
+
+// Exportar funciones necesarias globalmente
+window.checkAllSectionsLoaded = checkAllSectionsLoaded;
+</script>
+<script src="dist/main.min.js"></script>
+</body>
+</html>

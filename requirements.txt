@@ -1,0 +1,65 @@
+# Dependencias principales
+node==18.17.0
+npm==9.6.7
+
+# Herramientas de desarrollo
+live-server==1.2.2
+prettier==3.0.3
+eslint==8.52.0
+eslint-config-prettier==9.0.0
+eslint-plugin-prettier==5.0.0
+
+# Optimización y construcción
+terser==5.22.0
+postcss==8.4.31
+autoprefixer==10.4.16
+cssnano==6.0.1
+
+# Herramientas de desarrollo web
+browser-sync==3.0.2
+concurrently==8.2.2
+nodemon==3.0.1
+
+# Herramientas de optimización de imágenes
+sharp==0.32.6
+imagemin==8.0.1
+imagemin-pngquant==9.0.2
+imagemin-mozjpeg==10.0.0
+
+# Herramientas de testing
+jest==29.7.0
+@testing-library/jest-dom==6.1.4
+@testing-library/react==14.0.0
+
+# Herramientas de documentación
+jsdoc==4.0.2
+typedoc==0.24.8
+
+# Herramientas de seguridad
+npm-audit-fix==1.0.0
+snyk==1.1264.0
+
+# Herramientas de monitoreo y rendimiento
+lighthouse==11.2.0
+webpack-bundle-analyzer==4.9.1
+
+# Herramientas de accesibilidad
+axe-core==4.7.3
+pa11y==6.2.3
+
+# Herramientas de internacionalización
+i18next==23.5.1
+react-i18next==13.2.2
+
+# Herramientas de animación
+gsap==3.12.3
+three==0.158.0
+
+# Resoluciones de seguridad
+postcss>=8.4.31
+autoprefixer>=10.4.16
+browser-sync>=3.0.2
+concurrently>=8.2.2
+eslint>=8.52.0
+jest>=29.7.0
+terser>=5.22.0 
