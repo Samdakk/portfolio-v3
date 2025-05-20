@@ -11,7 +11,7 @@
     "clean": "rimraf dist",
     "build:css": "cross-env NODE_ENV=production postcss styles.css -o dist/styles.min.css --config postcss.config.js",
     "build:js": "terser js/main.js -o dist/main.min.js --compress --mangle",
-    "copy-files": "shx mkdir -p dist && shx cp index.html dist/ && shx cp -r sections dist/ && shx cp -r js dist/ && shx cp fonts.html dist/ && shx cp favicon.ico dist/ && shx cp styles.css dist/",
+    "copy-files": "shx mkdir -p dist && shx cp index.html dist/ && shx cp -r sections dist/ && shx cp -r js dist/ && shx cp fonts.html dist/ && shx cp favicon.ico dist/ && shx cp styles.css dist/ && shx cp dist/styles.min.css . && shx cp dist/main.min.js .",
     "watch:css": "postcss styles.css -o dist/styles.min.css --watch",
     "test": "jest",
     "lint": "eslint .",
