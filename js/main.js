@@ -172,6 +172,7 @@ function initCustomCursor() {
 function initSkillCards() {
     try {
         const skillFlipBtns = document.querySelectorAll('.skill-flip-btn');
+        const skillCards = document.querySelectorAll('.skill-card');
         
         // Asegurarse de que los botones existan
         if (!skillFlipBtns.length) {
