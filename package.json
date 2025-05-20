@@ -7,7 +7,8 @@
   "scripts": {
     "start": "live-server",
     "dev": "concurrently \"npm run start\" \"npm run watch:css\"",
-    "build": "npm run build:css && npm run build:js && npm run copy-files",
+    "build": "npm run clean && npm run build:css && npm run build:js && npm run copy-files",
+    "clean": "rimraf dist",
     "build:css": "postcss styles.css -o dist/styles.min.css",
     "build:js": "terser js/main.js -o dist/main.min.js",
     "copy-files": "shx mkdir -p dist && shx cp index.html dist/ && shx cp -r sections dist/ && shx cp -r js dist/ && shx cp fonts.html dist/",
@@ -46,6 +47,7 @@
     "postcss": "^8.4.35",
     "postcss-cli": "^10.1.0",
     "prettier": "^3.2.5",
+    "rimraf": "^6.0.1",
     "shelljs": "^0.9.2",
     "shx": "^0.4.0",
     "tailwindcss": "^3.4.1",
