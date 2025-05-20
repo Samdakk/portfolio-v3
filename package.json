@@ -11,7 +11,7 @@
     "clean": "rimraf dist",
     "build:css": "postcss styles.css -o dist/styles.min.css",
     "build:js": "terser js/main.js -o dist/main.min.js",
-    "copy-files": "shx mkdir -p dist && shx cp index.html dist/ && shx cp -r sections dist/ && shx cp -r js dist/ && shx cp fonts.html dist/",
+    "copy-files": "shx mkdir -p dist && shx cp index.html dist/ && shx cp -r sections dist/ && shx cp -r js dist/ && shx cp fonts.html dist/ && shx cp favicon.ico dist/",
     "watch:css": "postcss styles.css -o dist/styles.min.css --watch",
     "test": "jest",
     "lint": "eslint .",
