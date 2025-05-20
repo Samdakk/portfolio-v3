@@ -16,7 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.161.0/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<link rel="stylesheet" href="dist/styles.min.css">
+<link rel="stylesheet" href="styles.css">
 <div id="fonts-container"></div>
 </head>
 <body class="relative">
@@ -54,12 +54,12 @@ const loadingState = {
     totalSections: 6,
     sectionsInitialized: false,
     sections: [
-        { id: 'nav-container', file: 'dist/sections/nav.html' },
-        { id: 'hero-container', file: 'dist/sections/hero.html' },
-        { id: 'about-container', file: 'dist/sections/about.html' },
-        { id: 'skills-container', file: 'dist/sections/skills.html' },
-        { id: 'projects-container', file: 'dist/sections/projects.html' },
-        { id: 'contact-container', file: 'dist/sections/contact.html' }
+        { id: 'nav-container', file: 'sections/nav.html' },
+        { id: 'hero-container', file: 'sections/hero.html' },
+        { id: 'about-container', file: 'sections/about.html' },
+        { id: 'skills-container', file: 'sections/skills.html' },
+        { id: 'projects-container', file: 'sections/projects.html' },
+        { id: 'contact-container', file: 'sections/contact.html' }
     ]
 };
 
@@ -108,7 +108,7 @@ async function loadSection(containerId, sectionFile) {
 async function loadFonts() {
     console.log('[DEBUG] Intentando cargar fuentes...');
     try {
-        const response = await fetch('dist/fonts.html');
+        const response = await fetch('fonts.html');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -168,6 +168,6 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 // Exportar funciones necesarias globalmente
 window.checkAllSectionsLoaded = checkAllSectionsLoaded;
 </script>
-<script src="dist/main.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
