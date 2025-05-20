@@ -172,7 +172,6 @@ function initCustomCursor() {
 function initSkillCards() {
     try {
         const skillFlipBtns = document.querySelectorAll('.skill-flip-btn');
-        const skillCards = document.querySelectorAll('.skill-card');
         
         // Asegurarse de que los botones existan
         if (!skillFlipBtns.length) {
@@ -229,26 +228,14 @@ function initSkillCards() {
                 } else {
                     // Resetear las barras de progreso cuando se voltea hacia atrás
                     const progressBars = card.querySelectorAll('.progress-fill');
-                    progressBars.forEach(bar => {
+                    const percentages = card.querySelectorAll('.skill-percentage');
+                    
+                    progressBars.forEach((bar, index) => {
                         bar.style.width = '0%';
+                        if (percentages[index]) {
+                            percentages[index].textContent = '0%';
+                        }
                     });
-                }
-            });
-        });
-
-        // Agregar animaciones hover a todas las tarjetas
-        skillCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                if (!card.classList.contains('flipped')) {
-                    card.style.transform = 'translateY(-10px)';
-                    card.style.boxShadow = '0 20px 25px -5px rgba(99, 102, 241, 0.2), 0 10px 10px -5px rgba(99, 102, 241, 0.1)';
-                }
-            });
-
-            card.addEventListener('mouseleave', () => {
-                if (!card.classList.contains('flipped')) {
-                    card.style.transform = 'translateY(0)';
-                    card.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
                 }
             });
         });
@@ -386,11 +373,22 @@ function initContactForm() {
     }
 }
 
+// Observer robusto para skills: ejecuta initSkillCards cada vez que cambia el contenido del contenedor
+function observeSkillsContainer() {
+    const skillsContainer = document.getElementById('skills-container');
+    if (skillsContainer) {
+        setTimeout(() => {
+            initSkillCards();
+        }, 50);
+    }
+}
+
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM cargado, inicializando...');
     initNavigation();
     initContactForm();
+    observeSkillsContainer();
 });
 
 // Exportar funciones necesarias globalmente

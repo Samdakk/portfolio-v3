@@ -92,45 +92,58 @@
 
 /* Estilos para las tarjetas de habilidades */
 .skill-card {
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
+    perspective: 1000px;
     position: relative;
     min-height: 420px;
-    perspective: 1000px;
-}
-
-.skill-card.flipped {
-    transform: rotateY(180deg);
+    width: 100%;
 }
 
 .skill-front, .skill-back {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-front {
     background: white;
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: transform 0.6s;
-}
-
-.skill-front {
-    z-index: 2;
     transform: rotateY(0deg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    z-index: 2;
 }
 
 .skill-back {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    z-index: 1;
+}
+
+.skill-card.flipped .skill-front {
+    transform: rotateY(180deg);
+    pointer-events: none;
+}
+
+.skill-card.flipped .skill-back {
+    transform: rotateY(0deg);
+    pointer-events: auto;
+}
+
+.skill-card:not(.flipped) .skill-back {
+    pointer-events: none;
+}
+
+.skill-card:not(.flipped) .skill-front {
+    pointer-events: auto;
 }
 
 .skill-card:hover:not(.flipped) {
@@ -141,7 +154,6 @@
 .skill-flip-btn {
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 3;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -151,6 +163,7 @@
     background: rgba(99, 102, 241, 0.1);
     color: #6366f1;
     font-weight: 500;
+    z-index: 3;
 }
 
 .skill-flip-btn:hover {

@@ -1,4 +1,6 @@
-# Portfolio Personal - Lucas Vazquez
+# Portfolio v3
+
+> ⚠️ **Aviso legal:** Este software y su contenido están protegidos por derechos de autor. Solo se permite la visualización personal y no comercial. Prohibida la copia, modificación, distribución o uso comercial sin permiso expreso y por escrito del titular. Todos los derechos reservados.
 
 Este es mi portfolio personal donde muestro mis proyectos y habilidades como desarrollador Full Stack.
 
