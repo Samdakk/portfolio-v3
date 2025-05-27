@@ -9,8 +9,6 @@ Este es mi portfolio personal donde muestro mis proyectos y habilidades como des
 - Diseño moderno y responsivo
 - Animaciones suaves
 - Formulario de contacto funcional
-- Secciones para mostrar proyectos y habilidades
-- Optimizado para SEO
 
 ## Tecnologías Utilizadas
 
@@ -20,28 +18,6 @@ Este es mi portfolio personal donde muestro mis proyectos y habilidades como des
 - Three.js para animaciones 3D
 - GSAP para animaciones
 - EmailJS para el formulario de contacto
-
-## Instalación
-
-1. Clona el repositorio:
-```bash
-git clone https://github.com/samdakk/portfolio-v3.git
-```
-
-2. Instala las dependencias:
-```bash
-npm install
-```
-
-3. Ejecuta el proyecto en desarrollo:
-```bash
-npm run dev
-```
-
-4. Construye para producción:
-```bash
-npm run build
-```
 
 ## Estructura del Proyecto
 
